@@ -30,7 +30,28 @@ set nocompatible
 
 "Personal Settings.
 "More to be added soon.
-execute pathogen#infect()
+"execute pathogen#infect()
+"Vim plug 
+call plug#begin()
+
+Plug 'sjl/badwolf'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+Plug 'https://github.com/chaquotay/ftl-vim-syntax.git'
+Plug 'https://github.com/mattn/emmet-vim.git'
+Plug 'https://github.com/Yggdroot/indentLine.git'
+Plug 'https://github.com/scrooloose/nerdtree.git'
+Plug 'https://github.com/ervandew/supertab.git'
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/sickill/vim-monokai.git'
+Plug 'https://github.com/altercation/vim-colors-solarized.git'
+Plug 'https://github.com/tpope/vim-commentary.git'
+Plug 'https://github.com/pangloss/vim-javascript.git'
+Plug 'https://github.com/vimwiki/vimwiki.git'
+Plug 'https://github.com/vim-airline/vim-airline-themes.git'
+Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+
+call plug#end()
+
 filetype plugin indent on
 syntax on
 set autochdir "auto change the directory to the current file
@@ -39,7 +60,7 @@ set autochdir "auto change the directory to the current file
 colorscheme badwolf 
 
 "set font size
-set guifont=Courier\ New:h11
+set guifont=Courier\ New:h10
 
 "remap semi colon and colon
 nore ; :
@@ -50,7 +71,7 @@ set tabstop=4 "number of visual spaces per tab
 set softtabstop=4 "number of spaces in tab when editing
 set expandtab "tabs are spaces
 set shiftwidth=4 "how many space use for indent via >> command
-set listchars=tab:>~ "make space and tabs visible
+set listchars=tab:>~,trail:. "make space and tabs visible
 set list
 
 "UI config
@@ -136,3 +157,5 @@ let $HOME = $USERPROFILE
 noremap <C-a> :CtrlP C:\cygwin64_2\home\baol01\stannah-trunk\<CR>
 noremap <C-z> :CtrlP C:\cygwin64_2\home\baol01\stannah-staging\<CR>
 
+"remap save
+noremap <C-s> :w<CR>
