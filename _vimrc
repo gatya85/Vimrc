@@ -31,14 +31,26 @@ set nocompatible
 "Personal Settings.
 "More to be added soon.
 "execute pathogen#infect()
-"Vim plug 
+
+"Vim plug
 call plug#begin()
 
-Plug 'sjl/badwolf'
+"theme badwolf Plug 'sjl/badwolf'
+
+"Ctrl P fuzzy search
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-Plug 'https://github.com/chaquotay/ftl-vim-syntax.git'
+
+"ftl syntax
+"Plug 'https://github.com/chaquotay/ftl-vim-syntax.git'
+Plug 'https://github.com/andreshazard/vim-freemarker.git'
+
+"emmet easy create html
 Plug 'https://github.com/mattn/emmet-vim.git'
+
+"indent
 Plug 'https://github.com/Yggdroot/indentLine.git'
+
+"nerd tree
 Plug 'https://github.com/scrooloose/nerdtree.git'
 Plug 'https://github.com/ervandew/supertab.git'
 Plug 'https://github.com/vim-airline/vim-airline.git'
@@ -49,6 +61,7 @@ Plug 'https://github.com/pangloss/vim-javascript.git'
 Plug 'https://github.com/vimwiki/vimwiki.git'
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+""Plug 'https://github.com/scrooloose/syntastic.git'
 
 call plug#end()
 
@@ -57,7 +70,7 @@ syntax on
 set autochdir "auto change the directory to the current file
 
 "set color scheme
-colorscheme badwolf 
+colorscheme monokai
 
 "set font size
 set guifont=Courier\ New:h10
@@ -78,10 +91,10 @@ set list
 set number "show line number
 set showcmd "show command in bottom bar
 set cursorline "highlight current line
-set relativenumber "relative number for column 
+set relativenumber "relative number for column
 
-"Breakindent 
-set breakindent 
+"Breakindent
+set breakindent
 set showbreak=>>> " make break visible
 
 "auto apply syntax for ftl
@@ -126,7 +139,7 @@ set hlsearch " highlight matches
 set ignorecase " ignore case when search
 nnoremap <leader><space> :nohlsearch<CR> "turn off search highlight
 
-" make backspace work 
+" make backspace work
 set backspace=indent,eol,start
 
 " vimrc related setting
@@ -151,7 +164,7 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 
 " Move viminfo
-let $HOME = $USERPROFILE
+""let $HOME = $USERPROFILE
 
 "ctrlp set working directory
 noremap <C-a> :CtrlP C:\cygwin64_2\home\baol01\stannah-trunk\<CR>
@@ -159,3 +172,35 @@ noremap <C-z> :CtrlP C:\cygwin64_2\home\baol01\stannah-staging\<CR>
 
 "remap save
 noremap <C-s> :w<CR>
+
+"freemarker mapping
+nnoremap <leader>fi :call FTLIf()<CR>
+nnoremap <leader>fl :call FTLList()<CR>
+nnoremap <leader>fb :call FTLBigList()<CR>
+nnoremap <leader>fa :call FTLAssign()<CR>
+nnoremap <leader>fs :call FTLSwitch()<CR>
+
+"remap
+"noremap <leader>" <ESC>a""<ESC>i
+"noremap <leader>' <ESC>a''<ESC>i
+"noremap <leader>[ <ESC>a[]<ESC>i
+"noremap <leader>{ <ESC>a{}<ESC>i
+"noremap <leader>( <ESC>a()<ESC>i
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
+inoremap [ []<ESC>i
+inoremap { {}<ESC>i
+inoremap ( ()<ESC>i
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+"syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
