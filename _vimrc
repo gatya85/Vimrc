@@ -41,7 +41,7 @@ call plug#begin()
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 
 "ftl syntax
-"Plug 'https://github.com/chaquotay/ftl-vim-syntax.git'
+""Plug 'https://github.com/chaquotay/ftl-vim-syntax.git'
 Plug 'https://github.com/andreshazard/vim-freemarker.git'
 
 "emmet easy create html
@@ -62,7 +62,13 @@ Plug 'https://github.com/vimwiki/vimwiki.git'
 Plug 'https://github.com/vim-airline/vim-airline-themes.git'
 Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
 ""Plug 'https://github.com/scrooloose/syntastic.git'
-
+Plug 'https://github.com/vim-scripts/groovy.vim.git'
+Plug 'https://github.com/easymotion/vim-easymotion.git'
+""Plug 'https://github.com/abudden/taghighlight-automirror.git'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'https://github.com/jiangmiao/auto-pairs.git'
+Plug 'tpope/vim-surround.git'
+"Plug 'https://github.com/JazzCore/ctrlp-cmatcher.git'
 call plug#end()
 
 filetype plugin indent on
@@ -98,7 +104,7 @@ set breakindent
 set showbreak=>>> " make break visible
 
 "auto apply syntax for ftl
-autocmd BufNewFile,BufReadPost *.ftl set filetype=ftl
+autocmd BufNewFile,BufReadPost *.ftl set filetype=freemarker
 
 "auto indent;
 set autoindent
@@ -121,6 +127,7 @@ set wildmenu
 " nnoremap k gk
 
 " show buffer in name instead of whole path
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_theme='powerlineish'
 let g:airline_left_sep=''
@@ -151,7 +158,7 @@ map <Enter> o<ESC>
 map <S-Enter> O<ESC>
 
 " remap map leader key
-let mapleader = ","
+let mapleader = "\<Space>"
 
 " Use ctrl-[hjkl] to select the active split!
 "nmap <silent> <c-k> :wincmd k<CR>
@@ -186,21 +193,60 @@ nnoremap <leader>fs :call FTLSwitch()<CR>
 "noremap <leader>[ <ESC>a[]<ESC>i
 "noremap <leader>{ <ESC>a{}<ESC>i
 "noremap <leader>( <ESC>a()<ESC>i
-inoremap " ""<ESC>i
-inoremap ' ''<ESC>i
-inoremap [ []<ESC>i
-inoremap { {}<ESC>i
-inoremap ( ()<ESC>i
+"inoremap " ""<ESC>i
+"inoremap ' ''<ESC>i
+"inoremap [ []<ESC>i
+"inoremap { {}<ESC>i
+"inoremap ( ()<ESC>i
 
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 "syntastic config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+""set statusline+=%#warningmsg#
+""set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+"toggle syntax highlight
+noremap <Left> <ESC>:setfiletype freemarker<CR>
+noremap <Right> <ESC>:setfiletype javascript<CR>
+
+"prevent vim to add new line at the end of file"
+set noeol
+
+"map realign tab and create macro put in q register
+""nnoremap <F6> qq^i<TAB><ESC>jq
+let @t = '^i	j'
+let @y = '^f>a2f>^f>aj'
+
+"comment ftl"
+nnoremap <leader>fm ^i<!-- <ESC>A --><ESC>
+nnoremap <leader>fu ^df<space>$bdf>
+
+"buffer mapping"
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+nnoremap <C-X> :bdelete<CR>
+nmap <Leader>b :CtrlPBuffer<CR>
+
+"paste "
+nnoremap <leader>v "*p
+nnoremap <leader>p "0p
+
+" use ctrl-p python matcher
+if !has('python')
+        echo 'In order to use pymatcher plugin, you need +python compiled vim'
+    else
+        let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+    endif
+
+"close buffer without losing split.
+nnoremap <leader>c :bp\|bd #<CR>
+
+"merge line without space
+nnoremap J Jx
