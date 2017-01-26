@@ -222,7 +222,7 @@ set noeol
 "map realign tab and create macro put in q register
 ""nnoremap <F6> qq^i<TAB><ESC>jq
 let @t = '^i	j'
-let @y = '^f>a2f>^f>aj'
+let @y = '^f>a2f>^f>aj'
 
 "comment ftl"
 nnoremap <leader>fm ^i<!-- <ESC>A --><ESC>
@@ -245,8 +245,20 @@ if !has('python')
         let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
     endif
 
+"" The Silver Searcher
+if executable('pt')
+  " Use ag over grep
+  set grepprg=pt\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'pt -l --nocolor -g "" %s'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  "let g:ctrlp_use_caching = 0
+endif
+
 "close buffer without losing split.
 nnoremap <leader>c :bp\|bd #<CR>
 
 "merge line without space
-nnoremap J Jx
+"nnoremap J Jx
